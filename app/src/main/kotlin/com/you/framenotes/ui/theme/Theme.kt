@@ -1,9 +1,11 @@
-val ForestGreen = Color(0xFF5E6C5B)
-val FreshCream  = Color(0xFFF4EFE6)
-val CloudWhite  = Color(0xFFFEFCF6)
-val SkyBlue     = Color(0xFFD6E0E2)
-val StormCloud  = Color(0xFF686867)
-val Midnight    = Color(0xFF162A2C)
+package com.you.framenotes.ui.theme
+
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val Light = lightColorScheme(
     primary = ForestGreen, onPrimary = CloudWhite,

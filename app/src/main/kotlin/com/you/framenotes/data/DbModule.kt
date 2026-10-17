@@ -3,11 +3,13 @@ package com.you.framenotes.data
 import android.content.Context
 import android.net.Uri
 import androidx.room.Room
+import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -21,6 +23,10 @@ object DbModule {
 
     @Provides fun photoDao(db: AppDatabase) = db.photoDao()
     @Provides fun noteDao(db: AppDatabase) = db.noteDao()
+
+    @Provides
+    @Singleton
+    fun workManager(@ApplicationContext c: Context): WorkManager = WorkManager.getInstance(c)
 }
 
 @Singleton

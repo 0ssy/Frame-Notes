@@ -1,4 +1,4 @@
-package com.you.framenotes.ui.detail
+package com.you.framenotes.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

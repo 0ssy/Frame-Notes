@@ -10,6 +10,8 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.you.framenotes.data.FolderPrefs
+import com.you.framenotes.data.MockData
+import com.you.framenotes.data.NoteDao
 import com.you.framenotes.data.PhotoDao
 import com.you.framenotes.data.PhotoEntity
 import com.you.framenotes.exif.IndexWorker
@@ -24,6 +26,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 enum class SortOrder(val code: Int, val label: String) {
@@ -38,13 +41,21 @@ data class LibraryFilter(
 @HiltViewModel
 class LibraryViewModel @Inject constructor(
     private val dao: PhotoDao,
-    noteDao: com.you.framenotes.data.NoteDao,
+    private val noteDao: NoteDao,
     private val prefs: FolderPrefs,
     private val wm: WorkManager,
 ) : ViewModel() {
 
     private val _filter = MutableStateFlow(LibraryFilter())
     val filter = _filter.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            if (dao.snapshot().isEmpty()) {
+                MockData.seed(dao, noteDao)
+            }
+        }
+    }
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val photos: Flow<PagingData<PhotoEntity>> = _filter.debounce(200).flatMapLatest { f ->
@@ -55,6 +66,12 @@ class LibraryViewModel @Inject constructor(
 
     val cameras = dao.cameras().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
     val tags = noteDao.allTags().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    fun loadMockData() {
+        viewModelScope.launch {
+            MockData.seed(dao, noteDao)
+        }
+    }
 
     fun update(block: (LibraryFilter) -> LibraryFilter) = _filter.update(block)
     fun hasFolder() = prefs.treeUri() != null

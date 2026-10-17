@@ -1,3 +1,5 @@
+package com.you.framenotes.ui.theme
+
 import androidx.compose.ui.graphics.Color
 
 val ForestGreen = Color(0xFF5E6C5B)
