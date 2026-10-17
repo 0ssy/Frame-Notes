@@ -59,10 +59,17 @@ An Android app that indexes your photo library, learns how you shoot, and lets y
 
 ## Screenshots
 
-- Grid/Library view (to be added)
-- Detail view with EXIF (to be added)  
-- Insights dashboard with charts (to be added)
-- Filter/search UI (to be added)
+Screenshots are captured from the running app (minSdk 26). Place them in `docs/screenshots/`:
+
+- `docs/screenshots/library.png` — Library grid view with filter chips
+- `docs/screenshots/detail.png` — Detail view with grouped EXIF metadata
+- `docs/screenshots/insights.png` — Insights dashboard with Canvas charts
+- `docs/screenshots/privacy.png` — Privacy export before/after preview
+
+![Library](docs/screenshots/library.png)
+![Detail](docs/screenshots/detail.png)
+![Insights](docs/screenshots/insights.png)
+![Privacy](docs/screenshots/privacy.png)
 
 ## Tests
 
