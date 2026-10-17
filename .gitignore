@@ -1,0 +1,22 @@
+# Ignore build outputs
+*.iml
+.gradle
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/app/build
+/bin
+/.idea
+*.apk
+*.aab
+*.ap_
+*.log
+*.tmp
+*.swp
+Thumbs.db
+desktop.ini
+/app/schemas
